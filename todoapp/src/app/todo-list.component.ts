@@ -2,7 +2,6 @@
 
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { Tasks } from "./types/task";
-import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-todo-list',
