@@ -7,21 +7,40 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { TaskFormComponent } from './task-form.component';
 import { TodoListComponent } from './todo-list.component';
+import { HttpClientModule } from "@angular/common/http";
+import { TasksService } from './api/tasks.service';
+import { TodoListPageComponent } from './pages/todo-list-page.component';
+import { TodoDetailsPageComponent } from './pages/todo-details-page.component';
+
+import { RouterModule, Routes } from '@angular/router';
+
+// Ici, nous représentons les Routes, c'est une liste d'associations
+// entre URLs et composants. Chaque URL donnera lieu à l'affichage 
+// du composant qui lui est associé
+const routes: Routes = [
+  // La page d'accueil affichera la liste des tâches
+  { path: '', component: TodoListPageComponent },
+  // Ici on utilise une URL paramétrée
+  { path: ':id/details', component: TodoDetailsPageComponent }
+]
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoListComponent,
-    TaskFormComponent
+    TaskFormComponent,
+    TodoListPageComponent,
+    TodoDetailsPageComponent
   ],
   imports: [
     BrowserModule,
-    // En important le ReactiveFormsModule, on importe des
-    // composants, directives et services qu'il met à notre 
-    // disposition !
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    // On importe le RouterModule tout en lui donnant la configuration 
+    // nécessaire (nos routes)
+    RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [TasksService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
